@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] WeaponModel weapon;
     [SerializeField] Transform firePoint;
     [SerializeField] GameObject bulletImpact;
+    [SerializeField] int magazine;
 
 
     void Start()
@@ -16,10 +17,10 @@ public class Weapon : MonoBehaviour
         GetComponentInChildren<MeshFilter>();
         GetComponentInChildren<MeshRenderer>();
 
+        magazine = weapon.MagazineCap; // Inicialize o carregador atual com a capacidade máxima do carregador da arma
 
-        // Inicialize o carregador atual com a capacidade máxima do carregador da arma
+       //? Configure a aparência da arma 
 
-        // Configure a aparência da arma
     }
 
     void Update()
@@ -33,6 +34,11 @@ public class Weapon : MonoBehaviour
     
     private IEnumerator FireCoroutine()
     {
+
+        if () 
+        {
+            
+        }
         
         // Verifica se pode disparar
 
@@ -40,6 +46,7 @@ public class Weapon : MonoBehaviour
         // Define o tempo para o próximo disparo
 
         // Dispara projéteis com o tempo entre cada disparo
+
     }
 
     private void Shoot()
