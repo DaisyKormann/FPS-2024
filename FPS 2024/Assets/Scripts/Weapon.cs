@@ -12,8 +12,10 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
+
         GetComponentInChildren<MeshFilter>();
         GetComponentInChildren<MeshRenderer>();
+
 
         // Inicialize o carregador atual com a capacidade máxima do carregador da arma
 
@@ -28,7 +30,7 @@ public class Weapon : MonoBehaviour
     {
         StartCoroutine("Disparo Arma");
     }
-
+    
     private IEnumerator FireCoroutine()
     {
         
