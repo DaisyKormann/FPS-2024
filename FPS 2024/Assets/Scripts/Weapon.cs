@@ -35,17 +35,14 @@ public class Weapon : MonoBehaviour
     private IEnumerator FireCoroutine()
     {
 
-        if (magazine == 0) 
+        if () // Verifica se pode disparar
         {
-            magazine--;
-            weapon.FireRate = 7;
-            
-        }
-        
-        // Verifica se pode disparar
+            magazine--;         // Reduz a munição do carregador
+            weapon.FireRate = 7;         // Define o tempo para o próximo disparo
 
-        // Reduz a munição do carregador
-        // Define o tempo para o próximo disparo
+        }
+
+
 
         // Dispara projéteis com o tempo entre cada disparo
 
@@ -53,21 +50,31 @@ public class Weapon : MonoBehaviour
 
     private void Shoot()
     {
+        // Variável para armazenar o que foi atingido
+        // Direção do disparo, considerando a dispersão da arma
 
+        // Verifica se acertou algo na direção do disparo dentro do alcance
+
+        // Desenha uma linha para visualizar o trajeto do projétil
     }
 
     void Reload()
     {
-
+        StartCoroutine("Recarga");
     }
 
     private IEnumerator ReloadCoroutine()
-    {
+    { 
+        // Verifica se precisa recarregar e se há munição disponível
 
+        // Atualiza a munição no carregador e no inventário
+
+        // Aguarda o tempo de recarga
     }
 
     private void OnDrawGizmos()
     {
-        
+        // Você pode adicionar gizmos para visualizar coisas como o alcance do disparo
+        Gizmos.color = Color.red; // talvez ?
     }
 }
