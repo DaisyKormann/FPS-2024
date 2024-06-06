@@ -35,8 +35,10 @@ public class Weapon : MonoBehaviour
     private IEnumerator FireCoroutine()
     {
 
-        if () 
+        if (magazine == 0) 
         {
+            magazine--;
+            weapon.FireRate = 7;
             
         }
         
