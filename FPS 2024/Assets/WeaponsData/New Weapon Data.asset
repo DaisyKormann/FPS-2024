@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca21c3e1f8b51334dab51e8082ea9a47, type: 3}
   m_Name: New Weapon Data
   m_EditorClassIdentifier: 
-  damage: 0
-  range: 0
-  fireRate: 0
-  spread: 0
-  reloadTime: 0
-  timeBetweenShoots: 0
-  magazineCap: 0
-  bulletsForShoot: 0
+  damage: 10
+  range: 10
+  fireRate: 3
+  spread: 6
+  reloadTime: 2
+  timeBetweenShoots: 1
+  magazineCap: 3
+  bulletsForShoot: 3
   automatic: 0
   scope: 0
-  model: {fileID: 0}
-  material: {fileID: 0}
-  weaponPosition: {x: 0, y: 0, z: 0}
+  model: {fileID: 4300000, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}
+  material: {fileID: 2100000, guid: 484464b8ff3440e40bae6737848b8e21, type: 2}
+  weaponPosition: {x: -0.57, y: -1.07, z: -0.52}

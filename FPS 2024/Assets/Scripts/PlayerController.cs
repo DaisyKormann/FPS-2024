@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviourPun
 
         Movement();
         Rotation();
-        //Fire();
+        Fire();
         }
     }
 
