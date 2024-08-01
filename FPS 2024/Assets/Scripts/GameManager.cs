@@ -1,18 +1,45 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Singleton
+    public static GameManager instance;
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
+    #endregion
 
-    // Update is called once per frame
-    void Update()
+    const string playerPrefabPath = "Prefabs/Player";
+
+    int playerInGame;
+    List<PlayerController> playerList = new List<PlayerController>();
+    PlayerController playerLocal;
+    private void Start()
     {
-        
+        photonView.RPC("AddPlayer", RpcTarget.AllBuffered);// so quem ta na ssla e carregou a cena atual esse buff
+    }
+    private void CreatePlayer()
+    {
+        PlayerController player = PhotonNetwork.Instantiate(playerPrefabPath, new Vector3(30, 1, 30), Quaternion.identity).GetComponent<PlayerController>();
+    }
+    [PunRPC]
+    private void AddPlayer()
+    {
+        playerInGame++;
+        if (playerInGame == PhotonNetwork.PlayerList.Length)
+        {
+            CreatePlayer();
+        }
     }
 }
