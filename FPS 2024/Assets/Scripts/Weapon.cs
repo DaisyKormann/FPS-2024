@@ -60,6 +60,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
+
     void Shoot()
     {
         // Variável para armazenar o que foi atingido
@@ -69,7 +70,7 @@ public class Weapon : MonoBehaviour
         // Verifica se acertou algo na direção do disparo dentro do alcance
         if(Physics.Raycast(firePoint.position, direction, out hit, weaponData.Range)) 
         {
-            Instantiate(bulletImpact, hit.point, Quaternion.identity);
+            NetworkManager.instance.Instantiate("Prefabs/Grenade", hit.point, Quaternion.identity);
             // Desenha uma linha para visualizar o trajeto do projétil
             Debug.DrawLine(firePoint.position, direction * weaponData.Range);
 
