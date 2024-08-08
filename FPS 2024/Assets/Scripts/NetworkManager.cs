@@ -101,7 +101,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(sceneName); // Carrega a cena especificada
     }
 
-    public GameObject InstatiateRPC(string prefabName, Vector3 position, Quaternion rotation)
+    public GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation)
     {
        return PhotonNetwork.Instantiate(prefabName, position, rotation);
     }

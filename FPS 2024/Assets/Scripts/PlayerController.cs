@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPun
     float mouseSensitivity;
 
     bool controllerOn = true;
+    float health;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviourPun
         characterController = GetComponent<CharacterController>();
         camTransform = GetComponentInChildren<Camera>().transform;
         playerGravity = GetComponent<PlayerGravity>();
+        weapon = GetComponentInChildren<Weapon>();
     }
 
     [PunRPC]
@@ -106,6 +108,7 @@ public class PlayerController : MonoBehaviourPun
         transform.Rotate(Vector3.up * camDirection.x);
     }
 
+
     void Fire()
     {
         if(shooting)
@@ -126,12 +129,25 @@ public class PlayerController : MonoBehaviourPun
 
     void ThrowGrenade()
     {
-        GameObject grenade = Instantiate(grenadePrefab, throwPoint.position, camTransform.rotation);
+        Grenade grenade = NetworkManager.instance.Instantiate("Prefab/Grenade", throwPoint.position, camTransform.rotation).GetComponent<Grenade>();
 
         Vector3 throwForce = transform.up * throwForceUp + camTransform.forward * throwForceForward;
 
-        grenade.GetComponent<Rigidbody>().AddForce(throwForce, ForceMode.Impulse);
+        grenade.photonView.RPC("Initialize", RpcTarget.All, throwForce); //toda chamada de método rpc através do photon
+    }
 
-        Destroy(grenade, 10);
+    public void TakeDamage(float damage)
+    {
+        photonView.RPC("TakeDamageRPC", RpcTarget.All, damage);
+    }
+
+    [PunRPC]
+    public void TakeDamageRPC(float damage)
+    {
+        if (damage > 0)
+        {
+            health -= damage;
+        }   
+    
     }
 }
