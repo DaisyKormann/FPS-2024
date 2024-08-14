@@ -16,13 +16,13 @@ public class Weapon : MonoBehaviour
     float timeToShoot;
     bool reloading;
 
+    public WeaponData WeaponData { get => weaponData; }
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         meshFilter = GetComponentInChildren<MeshFilter>();
         meshRenderer = GetComponentInChildren<MeshRenderer>();
-
-        UpdateWeapon(weaponData);
     }
 
     private void Update()
@@ -60,20 +60,16 @@ public class Weapon : MonoBehaviour
         }
     }
 
-
     void Shoot()
     {
         // Variável para armazenar o que foi atingido
         RaycastHit hit;
-
         // Direção do disparo, considerando a dispersão da arma
         Vector3 direction = firePoint.forward + new Vector3(Random.Range(-weaponData.Spread, weaponData.Spread), Random.Range(-weaponData.Spread, weaponData.Spread), 0);
-
         // Verifica se acertou algo na direção do disparo dentro do alcance
         if(Physics.Raycast(firePoint.position, direction, out hit, weaponData.Range)) 
         {
             NetworkManager.instance.Instantiate("Prefabs/Grenade", hit.point, Quaternion.identity);
-
             // Desenha uma linha para visualizar o trajeto do projétil
             Debug.DrawLine(firePoint.position, direction * weaponData.Range);
 
@@ -113,7 +109,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    void UpdateWeapon(WeaponData newWeapon)
+    public void UpdateWeapon(WeaponData newWeapon)
     {
         weaponData = newWeapon;
         meshFilter.mesh = weaponData.Model;

@@ -12,5 +12,4 @@ public class Grenade : MonoBehaviourPun
 
         Destroy(gameObject, 10);
     }
-
 }

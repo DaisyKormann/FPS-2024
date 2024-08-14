@@ -28,13 +28,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-
+    
     // Método chamado antes do primeiro frame de atualização
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(); // Conecta ao servidor Photon usando configurações definidas
     }
-
+    
     // Método chamado quando conectado ao servidor mestre do Photon
     public override void OnConnectedToMaster()
     {
@@ -42,14 +42,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         MenuManager.instance.Connected(); // Chama o método Connected do menuManager
     }
-
+    
     // Método para entrar em uma sala com um nome de sala e apelido
     public void JoinRoom(string roomName, string nickname)
     {
         PhotonNetwork.NickName = nickname; // Define o apelido do jogador
         PhotonNetwork.JoinRoom(roomName); // Tenta entrar na sala especificada
     }
-
+    
     // Método para criar uma sala com um nome de sala e apelido
     public void CreateRoom(string roomName, string nickname)
     {
@@ -62,7 +62,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom(); // Sai da sala atual
     }
-
+    
     // Método chamado quando um jogador entra na sala
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -77,7 +77,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         MenuManager.instance.UpdatePlayerList(GetPlayerList()); // Atualiza a lista de jogadores no menuManager
         MenuManager.instance.SetStartButton(PhotonNetwork.IsMasterClient); // Define o botão de iniciar se o jogador for o mestre da sala
     }
-
+    
     // Método chamado quando o jogador entra na sala
     public override void OnJoinedRoom()
     {
@@ -85,14 +85,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         MenuManager.instance.UpdatePlayerList(GetPlayerList()); // Atualiza a lista de jogadores no menuManager
         MenuManager.instance.SetStartButton(PhotonNetwork.IsMasterClient); // Define o botão de iniciar se o jogador for o mestre da sala
     }
-
-
+    
     // Método para carregar uma cena
     public void LoadScene(string sceneName)
     {
         photonView.RPC("LoadSceneRPC", RpcTarget.All, sceneName); // Chama um RPC para carregar a cena em todos os clientes
     }
-
 
     // Método RPC para carregar uma cena
     [PunRPC]
@@ -103,7 +101,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public GameObject Instantiate(string prefabName, Vector3 position, Quaternion rotation)
     {
-       return PhotonNetwork.Instantiate(prefabName, position, rotation);
+        return PhotonNetwork.Instantiate(prefabName, position, rotation);
     }
 
     // Método para obter a lista de jogadores como string

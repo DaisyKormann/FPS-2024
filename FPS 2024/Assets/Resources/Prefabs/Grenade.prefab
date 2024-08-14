@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6774089130714221320}
   - component: {fileID: 7169267778590188435}
   - component: {fileID: 496092975470743865}
-  - component: {fileID: 4107527849674761617}
+  - component: {fileID: 9066898778795864805}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -134,7 +134,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4107527849674761617
+--- !u!114 &9066898778795864805
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,8 +151,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

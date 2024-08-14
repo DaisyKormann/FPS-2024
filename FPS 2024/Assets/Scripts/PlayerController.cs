@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerController : MonoBehaviourPun
+public class PlayerController : MonoBehaviourPun, IDamageable
 {
     const float speed = 5;
     const float throwForceForward = 10, throwForceUp = 5;
@@ -24,9 +24,9 @@ public class PlayerController : MonoBehaviourPun
     Transform throwPoint;
     [SerializeField, Range(0f, 500f)]
     float mouseSensitivity;
+    float health;
 
     bool controllerOn = true;
-    float health;
 
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class PlayerController : MonoBehaviourPun
     [PunRPC]
     private void Initialize()
     {
+        weapon.UpdateWeapon(weapon.WeaponData);
         if(!photonView.IsMine)
         {
             GetComponentInChildren<Camera>().enabled = false;
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviourPun
             shooting = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             shooting = false;
         }
@@ -108,7 +109,6 @@ public class PlayerController : MonoBehaviourPun
         transform.Rotate(Vector3.up * camDirection.x);
     }
 
-
     void Fire()
     {
         if(shooting)
@@ -129,11 +129,11 @@ public class PlayerController : MonoBehaviourPun
 
     void ThrowGrenade()
     {
-        Grenade grenade = NetworkManager.instance.Instantiate("Prefab/Grenade", throwPoint.position, camTransform.rotation).GetComponent<Grenade>();
+        Grenade grenade = NetworkManager.instance.Instantiate("Prefabs/Grenade", throwPoint.position, camTransform.rotation).GetComponent<Grenade>();
 
         Vector3 throwForce = transform.up * throwForceUp + camTransform.forward * throwForceForward;
 
-        grenade.photonView.RPC("Initialize", RpcTarget.All, throwForce); //toda chamada de método rpc através do photon
+        grenade.photonView.RPC("Initialize", RpcTarget.All, throwForce);
     }
 
     public void TakeDamage(float damage)
@@ -142,12 +142,8 @@ public class PlayerController : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void TakeDamageRPC(float damage)
+    void TakeDamageRPC(float damage)
     {
-        if (damage > 0)
-        {
-            health -= damage;
-        }   
-    
+        health -= damage;
     }
 }
